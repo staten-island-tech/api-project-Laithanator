@@ -1,7 +1,9 @@
 import "../CSS/style.css";
 async function getData() {
   try {
-    const response = await fetch("https://www.freetogame.com/api/games");
+    const response = await fetch(
+      "https://data.cityofnewyork.us/resource/uip8-fykc.json"
+    );
     if (response.status != 200) {
       throw new Error(response);
     } else {
@@ -14,20 +16,11 @@ async function getData() {
 }
 getData();
 
-const DOMSelectors = {
-  container: document.querySelector(".container"),
-};
+let myMap = L.map(".map").setView([37.61, -122.011], 10);
 
-function cardCreate(array) {
-  DOMSelectors.container.innerHTML = "";
-  array.forEach((card) => {
-    idCounter += 1;
-    DOMSelectors.container.insertAdjacentHTML(
-      "beforeEnd",
-      `<div class="card" id="card-${idCounter}">
-    <h2 class="card-heading" id="heading-${idCounter}">${card.characterName}</h2>
-    <h3 class="card-subheading" id="heading-${idCounter}">${card.movieName}</h3>
-    <img class="card-img" id="img-${idCounter}" src="${card.imgLink}" alt="${card.alt}"></div>`
-    );
-  });
-}
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  // Attribution is obligatory as per copyright!
+  maxZoom: 20,
+}).addTo(myMap);
