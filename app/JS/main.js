@@ -8,7 +8,7 @@ async function getData() {
       throw new Error(response);
     } else {
       const data = await response.json();
-      console.log(data.data);
+      console.log(data.length);
     }
   } catch (error) {
     alert("couldnt find that agent");
@@ -16,15 +16,12 @@ async function getData() {
 }
 getData();
 
-data = 
+const data = await response.json();
 
-function run(){
-  statisticOne = response.
+function run() {
+  statisticOne = response.length;
 }
 
 function cardCreate(array) {
-  DOMSelectors.container.insertAdjacentHTML(
-    "beforeEnd",
-
-  );
+  DOMSelectors.container.insertAdjacentHTML("beforeEnd");
 }
