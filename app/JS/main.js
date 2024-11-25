@@ -9,7 +9,6 @@ async function getData() {
       throw new Error(response);
     } else {
       const data = await response.json();
-      console.log(data.length);
       return data;
     }
   } catch (error) {
@@ -17,16 +16,16 @@ async function getData() {
   }
 }
 
-const data = getData();
-console.log(data.length);
-console.log(`number ${Math.ceil(Math.random() * 1000)}`);
-
-function run() {
-  console.log(Math.random(data.length));
-  let statisticOne = data[Math.random(data.length)];
-  console.log(`stat1 ${statisticOne}`);
+async function run() {
+  const data = await getData();
+  const randomNum = Math.floor(Math.random() * data.length);
+  const statisticOne = data[randomNum].ofns_desc;
+  return statisticOne;
 }
-run();
+run().then((result) => {
+  const statisticOne = result;
+});
+console.log(`stat one outside ${statisticOne}`);
 function cardCreate(array) {
   DOMSelectors.container.insertAdjacentHTML("beforeEnd");
 }
