@@ -1,5 +1,8 @@
 import "../CSS/style.css";
-
+const DOMSelectors = {
+  side1: document.querySelector("#side1"),
+  side2: document.querySelector("#side2"),
+};
 async function getData() {
   try {
     const response = await fetch(
@@ -19,13 +22,12 @@ async function getData() {
 async function run() {
   const data = await getData();
   const randomNum = Math.floor(Math.random() * data.length);
-  const statisticOne = data[randomNum].ofns_desc;
-  return statisticOne;
+  const statistic = data[randomNum].ofns_desc;
+  return statistic;
 }
-run().then((result) => {
-  const statisticOne = result;
-});
-console.log(`stat one outside ${statisticOne}`);
-function cardCreate(array) {
-  DOMSelectors.container.insertAdjacentHTML("beforeEnd");
+function sideCreate(stat1, stat2) {
+  DOMSelectors.side1.insertAdjacentHTML("beforeEnd", ``);
 }
+const statisticOne = await run();
+const statistictwo = await run();
+sideCreate(statisticOne, statistictwo);
