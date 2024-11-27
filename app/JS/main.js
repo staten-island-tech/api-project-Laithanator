@@ -25,9 +25,32 @@ async function run() {
   const statistic = data[randomNum].ofns_desc;
   return statistic;
 }
-function sideCreate(stat1, stat2) {
-  DOMSelectors.side1.insertAdjacentHTML("beforeEnd", ``);
+async function numStat(stat) {
+  const data = await getData();
+  const sortedData = data.filter((arrest) => arrest.ofns_desc === stat);
+  console.log(`storted data: ${sortedData}`);
+  return sortedData.length;
+}
+function sideCreate(statisticOne, stat1, statisticTwo, stat2) {
+  DOMSelectors.side1.innerHTML = "";
+  DOMSelectors.side2.innerHTML = "";
+  DOMSelectors.side1.insertAdjacentHTML(
+    "beforeEnd",
+    `<h2>${statisticOne}</h2>
+  <h4>has</h4>
+  <h2>${stat1}Arrests!</h2>`
+  );
+  DOMSelectors.side1.insertAdjacentHTML(
+    "afterbegin",
+    `<h2>${statisticTwo}</h2>
+    <h4>has</h4>
+    <button>More!</button>
+    <button>Less!</button>
+    <h4>Arrests than ${statisticOne}</h4>`
+  );
 }
 const statisticOne = await run();
-const statistictwo = await run();
-sideCreate(statisticOne, statistictwo);
+const stat1 = numStat(statisticOne);
+const statisticTwo = await run();
+const stat2 = numStat(statisticTwo);
+sideCreate(statisticOne, stat1, statisticTwo, stat2);
