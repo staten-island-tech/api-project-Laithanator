@@ -6,8 +6,16 @@
     <link rel="stylesheet" href="./CSS/style.css" />
   </head>
   <body>
-    <div class="sides" id="side1"></div>
-    <div class="sides" id="side2"></div>
+    <div class="flex w-full h-screen relative">
+      <div
+        id="side1"
+        class="bg-red-500 w-[50vw] h-full flex flex-col items-center justify-center text-center text-white"
+      ></div>
+      <div
+        id="side2"
+        class="bg-blue-500 w-[50vw] h-full flex flex-col items-center justify-center text-center text-white relative"
+      ></div>
+    </div>
     <script type="module" src="./JS/main.js"></script>
   </body>
 </html>
