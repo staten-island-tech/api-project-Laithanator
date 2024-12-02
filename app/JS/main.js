@@ -49,11 +49,11 @@ function sideCreate(offense1, num1, offense2, wins) {
   DOMSelectors.side2.insertAdjacentHTML(
     "afterbegin",
     `
-      <h3 class="text-2xl font-bold absolute top-0 m-0 p-4">Score: ${wins}</h3>
+      <h3 class="text-2xl font-bold absolute top-0 right-0 m-0 p-4">Score: ${wins}</h3>
       <h2 class="text-3xl font-bold">${offense2}</h2>
       <h4 class="text-xl">has</h4>
-      <button id="Mbtn" class="box-border bg-green-400 text-white p-2 m-2 rounded">More!</button>
-      <button id="Lbtn" class="box-border bg-red-500 text-white p-2 m-2 rounded">Less!</button>
+      <button id="Mbtn" class="btn btn-neutral box-border drop-shadow-sm w-20 bg-green-400 text-white p-2 m-2 rounded">More!</button>
+      <button id="Lbtn" class="btn btn-neutral box-border drop-shadow-2xl w-20 bg-red-500 text-white p-2 m-2 rounded">Less!</button>
       <h4 class="text-xl">Arrests than ${offense1}</h4>
     `
   );
@@ -89,8 +89,14 @@ const wins = 0;
 async function beginGame() {
   const offense1 = await makeOffense();
   const num1 = await numOffense(offense1);
-  const offense2 = await makeOffense();
-  const num2 = await numOffense(offense2);
+  let offense2 = await makeOffense();
+  while (offense2 === offense1) {
+    offense2 = await makeOffense();
+  }
+  let num2 = await numOffense(offense2);
+  while (num2 === num1) {
+    num2 = await numOffense(offense2);
+  }
   sideCreate(offense1, num1, offense2, wins);
   setBtns(num1, offense2, num2, wins);
 }
