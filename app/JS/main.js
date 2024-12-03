@@ -109,7 +109,7 @@ async function beginGame() {
   sideCreate(offense1, num1, offense2, wins);
   setBtns(num1, offense2, num2, wins);
 }
-await beginGame();
+beginGame();
 async function continueGame(winOffense, winNum, wins) {
   const offense1 = winOffense;
   const num1 = winNum;
