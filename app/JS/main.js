@@ -1,5 +1,6 @@
 import "../CSS/style.css";
 const DOMSelectors = {
+  container: document.querySelector(".cont"),
   side1: document.querySelector("#side1"),
   side2: document.querySelector("#side2"),
   Mbtn: document.querySelector("#Mbtn"),
@@ -72,6 +73,10 @@ function setBtns(num1, offense2, num2, wins) {
       continueGame(offense2, num2, wins);
     } else {
       wins = 0;
+      DOMSelectors.container.insertAdjacentHTML(
+        "beforeend",
+        `<img src="ximage.jpeg" alt="Game Over Image">`
+      );
       beginGame();
     }
   });
@@ -81,6 +86,10 @@ function setBtns(num1, offense2, num2, wins) {
       continueGame(offense2, num2, wins);
     } else {
       wins = 0;
+      DOMSelectors.container.insertAdjacentHTML(
+        "beforeend",
+        `<img class="" src="ximage.jpeg" alt="Game Over Image">`
+      );
       beginGame();
     }
   });
