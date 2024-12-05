@@ -41,6 +41,7 @@ function sideCreate(offense1, num1, offense2, wins) {
   DOMSelectors.side1.insertAdjacentHTML(
     "beforeEnd",
     `
+      <h3 class="text-2xl font-bold absolute top-0 left-0 m-0 p-4">Highscore: ${highestWins}</h3>
       <h2 class="text-3xl font-bold">${offense1}</h2>
       <h4 class="text-xl">has</h4>
       <h2 class="text-2xl">${num1} Arrests!</h2>
@@ -95,6 +96,7 @@ function setBtns(num1, offense2, num2, wins) {
   });
 }
 const wins = 0;
+const highestWins = 0;
 async function beginGame() {
   const offense1 = await makeOffense();
   const num1 = await numOffense(offense1);
