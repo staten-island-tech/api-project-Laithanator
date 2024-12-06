@@ -3,6 +3,7 @@ const DOMSelectors = {
   container: document.querySelector(".cont"),
   side1: document.querySelector("#side1"),
   side2: document.querySelector("#side2"),
+  lossScreen: document.querySelector("#lossScreen"),
   Mbtn: document.querySelector("#Mbtn"),
   Lbtn: document.querySelector("#Lbtn"),
 };
@@ -50,8 +51,7 @@ function sideCreate(offense1, num1, offense2, wins) {
 
   DOMSelectors.side2.insertAdjacentHTML(
     "afterbegin",
-    `
-      <h3 class="text-2xl font-bold absolute top-0 right-0 m-0 p-4">Score: ${wins}</h3>
+    `<h3 class="text-2xl font-bold absolute top-0 right-0 m-0 p-4">Score: ${wins}</h3>
       <h2 class="text-3xl font-bold">${offense2}</h2>
       <h4 class="text-xl">has</h4>
       <button id="Mbtn" class="btn btn-neutral box-border drop-shadow-sm w-20 bg-green-400 text-white p-2 m-2 rounded">More!</button>
@@ -61,7 +61,7 @@ function sideCreate(offense1, num1, offense2, wins) {
   );
 }
 
-function setBtns(num1, offense2, num2, wins) {
+function setBtns(num1, offense2, num2, wins, highestWins) {
   let Mbtn = document.querySelector("#Mbtn");
   let Lbtn = document.querySelector("#Lbtn");
   Mbtn.replaceWith(Mbtn.cloneNode(true));
@@ -71,33 +71,53 @@ function setBtns(num1, offense2, num2, wins) {
   Mbtn.addEventListener("click", () => {
     if (num2 > num1) {
       wins += 1;
-      continueGame(offense2, num2, wins);
+      continueGame(offense2, num2, wins, highestWins);
     } else {
+      if (wins > highestWins) {
+        highestWins = wins;
+      }
       wins = 0;
-      DOMSelectors.container.insertAdjacentHTML(
+      DOMSelectors.lossScreen.insertAdjacentHTML(
         "beforeend",
-        `<img src="ximage.jpeg" alt="Game Over Image">`
+        `<img class="z-10 w-100 h-auto left-1/2 top-1/4 absolute transform -translate-x-1/2 -translate-y-1/2" src="ximage.png" alt="Game Over Image">
+        <button class="btn btn-neutral box-border drop-shadow-sm w-40 bg-orange-500 text-white p-2 m-2 rounded text-xl absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" id="retryBtn">Retry?</button>`
       );
-      beginGame();
+      let Rbtn = document.querySelector("#retryBtn");
+      Rbtn.replaceWith(Rbtn.cloneNode(true));
+      Rbtn = document.querySelector("#retryBtn");
+      Rbtn.addEventListener("click", () => {
+        DOMSelectors.lossScreen.innerHTML = "";
+        beginGame(highestWins);
+      });
     }
   });
   Lbtn.addEventListener("click", () => {
     if (num1 > num2) {
       wins += 1;
-      continueGame(offense2, num2, wins);
+      continueGame(offense2, num2, wins, highestWins);
     } else {
+      if (wins > highestWins) {
+        highestWins = wins;
+      }
       wins = 0;
-      DOMSelectors.container.insertAdjacentHTML(
+      DOMSelectors.lossScreen.insertAdjacentHTML(
         "beforeend",
-        `<img class="" src="ximage.jpeg" alt="Game Over Image">`
+        `<img class="z-10 w-100 h-auto left-1/2 top-1/4 absolute transform -translate-x-1/2 -translate-y-1/2" src="ximage.png" alt="Game Over Image">
+        <button class="btn btn-neutral box-border drop-shadow-sm w-40 bg-orange-500 text-white p-2 m-2 rounded text-xl absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" id="retryBtn">Retry?</button>`
       );
-      beginGame();
+      let Rbtn = document.querySelector("#retryBtn");
+      Rbtn.replaceWith(Rbtn.cloneNode(true));
+      Rbtn = document.querySelector("#retryBtn");
+      Rbtn.addEventListener("click", () => {
+        DOMSelectors.lossScreen.innerHTML = "";
+        beginGame(highestWins);
+      });
     }
   });
 }
 const wins = 0;
 const highestWins = 0;
-async function beginGame() {
+async function beginGame(highestWins) {
   const offense1 = await makeOffense();
   const num1 = await numOffense(offense1);
   let offense2 = await makeOffense();
@@ -108,11 +128,11 @@ async function beginGame() {
   while (num2 === num1) {
     num2 = await numOffense(offense2);
   }
-  sideCreate(offense1, num1, offense2, wins);
-  setBtns(num1, offense2, num2, wins);
+  sideCreate(offense1, num1, offense2, wins, highestWins);
+  setBtns(num1, offense2, num2, wins, highestWins);
 }
-beginGame();
-async function continueGame(winOffense, winNum, wins) {
+beginGame(highestWins);
+async function continueGame(winOffense, winNum, wins, highestWins) {
   const offense1 = winOffense;
   const num1 = winNum;
   let offense2 = await makeOffense();
@@ -123,6 +143,6 @@ async function continueGame(winOffense, winNum, wins) {
   while (num2 === num1) {
     num2 = await numOffense(offense2);
   }
-  sideCreate(offense1, num1, offense2, wins);
-  setBtns(num1, offense2, num2, wins);
+  sideCreate(offense1, num1, offense2, wins, highestWins);
+  setBtns(num1, offense2, num2, wins, highestWins);
 }
