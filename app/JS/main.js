@@ -35,7 +35,7 @@ async function numOffense(stat) {
   console.log(`storted data: ${sortedData}`);
   return sortedData.length;
 }
-function sideCreate(offense1, num1, offense2, wins) {
+function sideCreate(offense1, num1, offense2, wins, highestWins) {
   DOMSelectors.side1.innerHTML = "";
   DOMSelectors.side2.innerHTML = "";
 
@@ -43,7 +43,7 @@ function sideCreate(offense1, num1, offense2, wins) {
     "beforeEnd",
     `
       <h3 class="text-2xl font-bold absolute top-0 left-0 m-0 p-4">Highscore: ${highestWins}</h3>
-      <h2 class="text-3xl font-bold">${offense1}</h2>
+      <h2 class="text-3xl font-bold break-words">${offense1}</h2>
       <h4 class="text-xl">has</h4>
       <h2 class="text-2xl">${num1} Arrests!</h2>
     `
@@ -52,11 +52,11 @@ function sideCreate(offense1, num1, offense2, wins) {
   DOMSelectors.side2.insertAdjacentHTML(
     "afterbegin",
     `<h3 class="text-2xl font-bold absolute top-0 right-0 m-0 p-4">Score: ${wins}</h3>
-      <h2 class="text-3xl font-bold">${offense2}</h2>
+      <h2 class="text-3xl font-bold break-words">${offense2}</h2>
       <h4 class="text-xl">has</h4>
       <button id="Mbtn" class="btn btn-neutral box-border drop-shadow-sm w-20 bg-green-400 text-white p-2 m-2 rounded">More!</button>
       <button id="Lbtn" class="btn btn-neutral box-border drop-shadow-2xl w-20 bg-red-500 text-white p-2 m-2 rounded">Less!</button>
-      <h4 class="text-xl">Arrests than ${offense1}</h4>
+      <h4 class="text-xl break-words">Arrests than ${offense1}</h4>
     `
   );
 }
@@ -79,7 +79,8 @@ function setBtns(num1, offense2, num2, wins, highestWins) {
       wins = 0;
       DOMSelectors.lossScreen.insertAdjacentHTML(
         "beforeend",
-        `<img class="z-10 w-100 h-auto left-1/2 top-1/4 absolute transform -translate-x-1/2 -translate-y-1/2" src="ximage.png" alt="Game Over Image">
+        `<div class="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-5"></div>
+        <img class="z-10 w-100 h-auto left-1/2 top-1/4 absolute transform -translate-x-1/2 -translate-y-1/2" src="ximage.png" alt="Game Over Image">
         <button class="btn btn-neutral box-border drop-shadow-sm w-40 bg-orange-500 text-white p-2 m-2 rounded text-xl absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" id="retryBtn">Retry?</button>`
       );
       let Rbtn = document.querySelector("#retryBtn");
